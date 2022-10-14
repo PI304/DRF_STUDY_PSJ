@@ -22,7 +22,7 @@ class UserManager(BaseUserManager):
 
     def create_superuser(
             self,
-            email,
+            email=None,
             password=None
         ):
         """
@@ -70,12 +70,16 @@ class MyUser(AbstractBaseUser):
         blank=True,
         null=True
     )
-
+    
+    created_at = models.DateTimeField(auto_now_add=True) #개체가 처음 생성될때 시각으로 설정 
+    
+    updated_at = models.DateTimeField(auto_now=True) #개체가 저장될때마다 현재 시각으로 설정
+    
     is_active = models.BooleanField(
         default=True
         null=False
         )
-    
+
     is_admin = models.BooleanField(default=False)
 
     objects = MyUserManager()
