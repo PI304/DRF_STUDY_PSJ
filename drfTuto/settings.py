@@ -13,10 +13,6 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 
-PSJ_APPS = ["user",]
-
-AUTH_USER_MODEL = 'user.User' #AbstractUser 사용 가능 / 앱 이름.커스텀 유저명
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+PSJ_APPS = ["user",]
+
+AUTH_USER_MODEL = 'user.User' #AbstractUser 사용 가능 / 앱 이름.커스텀 유저명
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
