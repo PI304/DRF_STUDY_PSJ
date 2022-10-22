@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+PSJ_APPS = ["user",]
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,11 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+    'rest_framework',
+] + PSJ_APPS
 
-PSJ_APPS = ["user",]
 
-AUTH_USER_MODEL = 'user.User' #AbstractUser 사용 가능 / 앱 이름.커스텀 유저명
+AUTH_USER_MODEL = 'user.MyUser' #AbstractUser 사용 가능 / 앱 이름.커스텀 유저명
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -74,6 +75,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'drfTuto.wsgi.application'
 
+# REST FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+    ),
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseFormParser',
+        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
