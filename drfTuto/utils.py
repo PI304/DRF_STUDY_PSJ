@@ -1,5 +1,11 @@
 from rest_framework.views import exception_handler
 
+class PasswordNotMatch(APIException):
+    status_code = 400
+    default_detail = "Passwords does not match."
+    default_code = "bad_request"
+
+
 def custom_exception_handler(exc, context):
     # Call REST framework's default exception handler first,
     # to get the standard error response.

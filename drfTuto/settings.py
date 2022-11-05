@@ -106,6 +106,8 @@ DATABASES = {
     }
 }
 
+LOGIN_REDIRECT_URL = '/' #로그인시 이동하는 페이지
+LOGOUT_REDIRECT_URL = '/' #로그아웃시 이동하는 페이지
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
