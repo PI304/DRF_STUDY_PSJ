@@ -18,6 +18,9 @@ from user.services import UserServices
 import smtplib
 from email.mime.text import MIMEText
 
+from dotenv import load_dotenv
+import os
+
 smtp_info = {
     'gmail.com': ('smtp.gmail.com', 587),
     'naver.com': ('smtp.naver.com', 587),
@@ -124,4 +127,4 @@ class EmailConfirmation(APIView):
         else:
             return Response({"details": "Verification code does not match."}, status=status.HTTP_400_BAD_REQUEST)
 
-smtp.login('june416412@gmail.com', '')
+smtp.login('june416412@gmail.com', os.environ.get('EMAIL_LOGIN_KEY'))
