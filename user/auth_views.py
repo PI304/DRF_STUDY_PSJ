@@ -6,14 +6,14 @@ from rest_framework.views import APIView
 from rest_framework.exceptions import AuthenticationFailed
 
 from drfTuto.utils import PasswordNotMatch
-from drfTuto.renderer import CustomRenderer
+from drfTuto.custom_renderer import CustomRenderer
 from user.models import User
 from rest_framework.response import Response
 from rest_framework import status, generics, permissions
 from django.contrib.auth.hashers import check_password
 
 from user.serializers import UserSerializer
-from user.services import UserServices
+from user.gen_codes import GenerateCode
 
 import smtplib
 from email.mime.text import MIMEText
@@ -92,7 +92,7 @@ class EmailVerification(APIView):
 
     def post(self, request, *args, **kwargs):
         email = request.data.get("email")
-        generated_code = UserServices.generate_random_code()
+        generated_code = GenerateCode.generate_random_code()
 
         # set code in cookie
         res = JsonResponse({'success': True})
