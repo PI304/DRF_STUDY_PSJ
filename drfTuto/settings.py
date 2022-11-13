@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-6d7u2b(=#!%%$%ty=3juq^s+(&d)fzo)!i!4v21nx4991c7f1j'
+SECRET_KEY = os.environ.get('Secret_Key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_filters',
+    'rest_framework_simplejwt'
 ] + PSJ_APPS
 
 
@@ -77,14 +79,26 @@ WSGI_APPLICATION = 'drfTuto.wsgi.application'
 
 # REST FRAMEWORK
 REST_FRAMEWORK = {
+    '''
     'DEFAULT_RENDERER_CLASSES': (
         'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
         'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+    ),
+    '''
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
     ),
     'DEFAULT_PARSER_CLASSES': (
         'djangorestframework_camel_case.parser.CamelCaseFormParser',
         'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    "EXCEPTION_HANDLER": "user.utils.custom_exception_handler",
+    "DEFAULT_FILTER_BACKENDS": 'django_filters.rest_framework.DjangoFilterBackend',
 }
 
 # Database
@@ -97,6 +111,8 @@ DATABASES = {
     }
 }
 
+LOGIN_REDIRECT_URL = '/' #로그인시 이동하는 페이지
+LOGOUT_REDIRECT_URL = '/' #로그아웃시 이동하는 페이지
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
